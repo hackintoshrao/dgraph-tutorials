@@ -164,7 +164,7 @@ the inner field defines the list of predicates to be present for each node in th
 Similarly, we could use the `has` function to find all nodes with the `age` 
 predicate. You could also alter the inner fields. 
 
-```json
+```sh
 {
   people(func: has(age)) {
     name
