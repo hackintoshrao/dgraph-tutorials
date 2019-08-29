@@ -2,7 +2,7 @@
 
 Welcome to getting started with Dgraph. I'm Karthic Rao,  Developer Advocate at Dgraph labs. In this tutorial, we'll learn to build a simple graph on Dgraph, 
 
-![The simple graph](./gs-1.png)
+![The simple graph](./images/gs-1.png)
 
 In the process we'll learn about, 
 
@@ -33,7 +33,7 @@ Copy the configuration, paste it in a file by name `docker-compose.yml`.
 ### Nodes and Edges
 In this exercise, let's build a simple graph with two-node and an edge connecting them.
 
-![The simple graph](./gs-1.png)
+![The simple graph](./images/gs-1.png)
 In a Graph database, any real-world objects or entities are represented as nodes.
 May it is a sale, a transaction, a place or a person, all these entities are 
 represented as a node in a Graph database.
@@ -51,11 +51,11 @@ necessary operations. The docker-compose setup should already have Ratel up and
 running. Just visit `http://localhost:8000` from your browser, and you should be able to access Ratel. 
 
 
-![ratel-1](./gs-2.png)
+![ratel-1](./images/gs-2.png)
 
 We'll be using the latest stable release of Ratel. 
 
-![ratel-2](./gs-3.png)
+![ratel-2](./images/gs-3.png)
 
 ---
 
@@ -105,10 +105,11 @@ A small modification to the query above would create an edge between these two n
   ]
 }
 ```
-<Explanation screenshot>
+
+![explain mutation](./images/explain-1.JPG)
 
 Let's execute this mutation. Click Run and boom! 
-![Query-gif](./mutation-1.gif)
+![Query-gif](./images/mutation-1.gif)
 
 ---
 
@@ -131,7 +132,7 @@ We know that both nodes created have predicate name and age in them.
 Go to the `Query` tab and type in the query.
 Click `Run` on the top right of the screen. 
 
-![query-1](./query-1.gif)
+![query-1](./images/query-1.gif)
 
 Two nodes appear in the result. On clicking the nodes, you could observe that 
 the nodes are assigned uid's. You could even use these uid's to query for nodes. 
@@ -141,13 +142,13 @@ We'll be doing that in the next video.
 Alternatively, you could also view the JSON results from the JSON tab on the right. 
 
 
-![query-2](./query-2.gif)
+![query-2](./images/query-2.gif)
 
 ---
 
 ### Deciphering the query.
 
-[Illustration with explanation]
+![Illustration with explanation](./images/explain-2.JPG)
  
 The first part of the query is the user-defined function name. In this case, 
 we have named it as `people`. However, one could use any name.  
