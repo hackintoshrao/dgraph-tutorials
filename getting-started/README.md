@@ -165,8 +165,10 @@ Similarly, we could use the `has` function to find all nodes with the `age`
 predicate. You could also alter the inner fields. 
 
 ```json
-people(func: has(age)) {
+{
+  people(func: has(age)) {
     name
+  }
 }
 ```
 
@@ -208,7 +210,7 @@ Here is one such example,
     {
       "name": "Karthic",
       "age": 28,
-      "country" : India
+      "country" : "India"
     },
     {
       "name": "Gary",
