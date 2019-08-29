@@ -1,6 +1,6 @@
 ### Getting started with Dgraph
 
-Welcome to getting started with Dgraph. I'm Karthic Rao, the Developer Advocate at Dgraph labs. In this tutorial, we'll learn to build a simple graph on Dgraph, 
+Welcome to getting started with Dgraph. I'm Karthic Rao,  Developer Advocate at Dgraph labs. In this tutorial, we'll learn to build a simple graph on Dgraph, 
 
 ![The simple graph](./gs-1.png)
 
@@ -38,7 +38,7 @@ In a Graph database, any real-world objects or entities are represented as nodes
 May it is a sale, a transaction, a place or a person, all these entities are 
 represented as a node in a Graph database.
 
-An edge represents the relationship between the nodes. The two nodes represent 
+An edge represents the relationship between the nodes. The two nodes in the above graph represent 
 people, `Karthic` and `Gary`. You could also see that these nodes have two 
 associated properties, `name` and `age`. These properties of the nodes are 
 also called as `predicates` in Dgraph. 
@@ -50,9 +50,15 @@ Like I mentioned earlier, we'll be using Ratel, Dgraph UI, for performing the
 necessary operations. The docker-compose setup should already have Ratel up and 
 running. Just visit `http://localhost:8000` from your browser, and you should be able to access Ratel. 
 
-[screenshot]
+
+![ratel-1](./gs-2.png)
+
+We'll be using the latest stable release of Ratel. 
+
+![ratel-2](./gs-3.png)
 
 ---
+
 ### Mutations using Ratel
 The Create, Update and Delete operations in Dgraph are called as mutations. 
 
@@ -99,11 +105,74 @@ A small modification to the query above would create an edge between these two n
   ]
 }
 ```
+<Explanation screenshot>
 
 Let's execute this mutation. Click Run and boom! 
+![Query-gif](./mutation-1.gif)
 
-<Explanation screenshot>
-We can extrapolate the same syntax to create more nodes and edges. 
+---
+
+### Querying using has function
+
+Now, let us run a query to obtain the nodes which we just created. 
+We'll be using Dgraph's `has` function in our query. 
+In short, `has(my_predicate)` returns one or more nodes with `my_predicate` in it. 
+We know that both nodes created have predicate name and age in them.
+
+```sh
+{
+  people(func: has(name)) {
+    name 
+    age
+  }
+}
+```
+
+Go to the `Query` tab and type in the query.
+Click `Run` on the top right of the screen. 
+
+![query-1](./query-1.gif)
+
+Two nodes appear in the result. On clicking the nodes, you could observe that 
+the nodes are assigned uid's. You could even use these uid's to query for nodes. 
+We'll be doing that in the next video. 
+
+
+Alternatively, you could also view the JSON results from the JSON tab on the right. 
+
+
+![query-2](./query-2.gif)
+
+---
+
+### Deciphering the query.
+
+[Illustration with explanation]
+ 
+The first part of the query is the user-defined function name. In this case, 
+we have named it as `people`. However, one could use any name.  
+
+`func` keyword has to be assigned to an inbuilt function. Dgraph offers a variety 
+of inbuilt functions. The `has`  function is one of them.  Check out the 
+[query language guide](https://docs.dgraph.io/query-language) to know more about 
+other in-built functions in Dgraph. Even better, just subcribe to the channel and follow along :)
+
+The inner fields are similar to select statement in SQL. `Has` selects the nodes, 
+the inner field defines the list of predicates to be present for each node in the included in the result. 
+
+Similarly, we could use the `has` function to find all nodes with the `age` 
+predicate. You could also alter the inner fields. 
+
+```json
+people(func: has(age)) {
+    name
+}
+```
+
+---
+
+### More on mutations
+We can extrapolate the mutation syntax to create more nodes and edges. 
 
 
 ```json
@@ -124,7 +193,6 @@ We can extrapolate the same syntax to create more nodes and edges.
   ]
 }
 ```
-[screenshot]
 
 ---
 
@@ -155,62 +223,6 @@ the second one has `name, age and city`.
 
 In the upcoming tutorials, we'll see how the newly introduced type system 
 feature allows us to associate types and follow a strict schema approach for nodes. 
-
----
-
-### Querying using has function
-
-Now, let us run a query to obtain the nodes which we just created. 
-We'll be using Dgraph's `has` function in our query. 
-In short, `has(my_predicate)` returns one or more nodes with `my_predicate` in it. 
-We know that both nodes created have predicate name and age in them.
-
-```sh
-people(func: has(name)) {
-  name 
-  age
-}
-```
-
-Go to the `Query` tab and type in the query.
-Click `Run` on the top right of the screen. 
-[screenshot]
-
-Two nodes appear in the result. On clicking the nodes, you could observe that 
-the nodes are assigned uid's. You could even use these uid's to query for nodes. 
-We'll be doing that in the next video. 
-
-[screenshot]
-
-Alternatively, you could also view the JSON results from the JSON tab on the right. 
-
-[screenshot]
-
----
-
-### Deciphering the query.
-
-[Illustration with explanation]
- 
-The first part of the query is the user-defined function name. In this case, 
-we have named it as `people`. However, one could use any name.  
-
-`func` keyword has to be assigned to an inbuilt function. Dgraph offers a variety 
-of inbuilt functions. The `has`  function is one of them.  Check out the 
-[query language guide](https://docs.dgraph.io/query-language) to know more about 
-other in-built functions in Dgraph. Even better, just subcribe to the channel and follow along :)
-
-The inner fields are similar to select statement in SQL. `Has` selects the nodes, 
-the inner field defines the list of predicates to be present for each node in the included in the result. 
-
-Similarly, we could use the `has` function to find all nodes with the `age` 
-predicate. You could also alter the inner fields. 
-
-```json
-people(func: has(age)) {
-    name
-}
-```
 
 ---
 
