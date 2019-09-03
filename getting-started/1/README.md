@@ -2,7 +2,7 @@
 
 Welcome to getting started with Dgraph. I'm Karthic Rao,  Developer Advocate at Dgraph labs. In this tutorial, we'll learn to build a simple graph on Dgraph, 
 
-![The simple graph](./images/gs-1.png)
+![The simple graph](./images/gs-1.JPG)
 
 In the process we'll learn about, 
 
@@ -33,7 +33,7 @@ Copy the configuration, paste it in a file by name `docker-compose.yml`.
 ### Nodes and Edges
 In this exercise, let's build a simple graph with two-node and an edge connecting them.
 
-![The simple graph](./images/gs-1.png)
+![The simple graph](./images/gs-1.JPG)
 In a Graph database, any real-world objects or entities are represented as nodes.
 May it is a sale, a transaction, a place or a person, all these entities are 
 represented as a node in a Graph database.
@@ -97,19 +97,19 @@ A small modification to the query above would create an edge between these two n
     {
       "name": "Karthic",
       "age": 28,
-      "friends": {
+      "follows": {
         "name": "Gary",
-        "age": 28
+        "age": 31
       }
     }
   ]
 }
 ```
 
-![explain mutation](./images/explain-1.JPG)
+![explain mutation](./images/explain-mutation.JPG)
 
 Let's execute this mutation. Click Run and boom! 
-![Query-gif](./images/mutation-1.gif)
+![Query-gif](./images/simple-mutation.gif)
 
 ---
 
@@ -184,10 +184,10 @@ We can extrapolate the mutation syntax to create more nodes and edges.
     {
       "name": "Michael",
       "age": 40,
-      "friends": {
+      "follows": {
         "name": "Pawan",
         "age": 28,
-        "friends":{
+        "follows":{
           "name": "Natalya",
           "age": 30
         }
@@ -208,14 +208,14 @@ Here is one such example,
 {
   "set":[
     {
-      "name": "Karthic",
-      "age": 28,
+      "name": "Balaji",
+      "age": 23,
       "country" : "India"
     },
     {
-      "name": "Gary",
-      "age": 28,
-      "city": "Sydney"
+      "name": "Daniel",
+      "age": 25,
+      "city": "San Diego"
     }
   ]
 }
@@ -232,7 +232,8 @@ feature allows us to associate types and follow a strict schema approach for nod
 ### Wrapping up
 That's it for this video. I hope you all had fun. In the next video, let's 
 learn about writing queries and mutations based on the uid's of the node. These 
-mutations include the update and delete operations. See you all soon, till then, happy Graphing! 
+mutations include the update and delete operations.
 
+See you all soon, till then, happy Graphing! 
 ---
 
