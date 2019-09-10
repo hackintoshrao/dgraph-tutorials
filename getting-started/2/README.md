@@ -1,12 +1,12 @@
-# UID's, Updates, deletes and traversals
-#### Taking forward the momemtum
-Welcome to the second the tutorial. 
-I'm Karthic Rao, Developer Advocate at Dgraph labs. 
-Let's take off from where we left off in the last video. 
-In the last lesson we learnt bunch of interesting things about Dgraph. 
-We learnt about running Dgraph using docker-compose, adding data using mutations and couple of simple queries. 
+# UID's, updates, traversals and deletes 
 
-Let's take forward the momemtum.
+Welcome to the second tutorial. 
+I'm Karthic Rao, the Developer Advocate at Dgraph labs. 
+Let's take off from where we left off in the last video. 
+In the last video, we got started with Dgraph.
+We learned about running Dgraph using docker-compose, adding data using mutations, and a couple of simple queries. 
+
+Let's take forward the momentum.
 Here's what we'll be learning in this tutorial,
 
 - [Querying using uid's.](#Querying-using-uid's)
@@ -19,7 +19,7 @@ Here's what we'll be learning in this tutorial,
 ---
 
 ##Querying using uid's
-In the last tutorial, we saw that Dgraph assigns an unique identifier `uid`, to the newly created nodes. 
+In the last tutorial, we saw that Dgraph assigns a unique identifier `uid`, to the newly created nodes. 
 
 Let's take a closer look at these uid's and use them to run queries. 
 
@@ -92,7 +92,7 @@ Click on nodes to expand them.
 
 ![click expand](./images/click-expand.gif)
 
-We have our Graph!
+We have the Graph!
 
 ---
 #### Using the uid() function
@@ -101,7 +101,7 @@ So far, we've only used Dgraph's `has` function in the queries.
 
 The inbuilt function `uid()` enables us to use the `uid` of nodes for queries and mutations.
 
-Let's copy the UID of node with `name` predicate set to `Michael`. 
+Let's copy the UID of the node with `name` predicate set to `Michael`. 
 We'll be using it to query for the node. 
 
 In the query below, replace the uid `0x1388` with the `uid` you just copied. 
@@ -140,7 +140,7 @@ Here's the mutation, let's go to the mutate tab and execute,
 }
 ```
 
-When a `uid` of node is used in a `set` function, it updates predicates of an existing node. 
+When a `uid` of a node is used in a `set` function, it updates predicates of an existing node. 
 
 Let's test the update using a query, 
 
@@ -161,24 +161,24 @@ The update is successful.
 
 ##Traversing the edge
 Edges connecting the nodes can be traversed in queries.
-Traversals make use of relationship between the nodes to explore the data.
+Traversals make use of the relationship between the nodes to explore the data.
 
 Let's revisit the graph we've built, 
 ![Graph](./images/graph.JPG). 
-Traversals helps you answer questions like, 
-- Who does Michael follow? 
-- Who does Pawan follow? 
+Traversals help you answer questions like, 
+- Whom does Michael follow? 
+- Whom does Pawan follow? 
 
 What's more interesting is that the traversals can be extended to multiple levels. 
 
-A two level traversal could answer questions like, `Give me all the followers of people who Michael follow`. 
+A two-level traversal could answer questions like, `Give me all the followers of people whom Michael follow.` 
 
-More deeper traversals help unearth complex relationships and patterns in the data.
+Deeper traversals help unearth complex relationships and patterns in the data.
 
 ---
 
 #### One level traversals 
-Let's find how to find the people who `Michael` follow using one level traversal query. 
+Let's find how to find the people who `Michael` follow using a level traversal query. 
 
 ```sh
 {
@@ -198,25 +198,25 @@ Here's the result.
 
 Let's dissect the query,
 
-- The `uid()` function is the criteria for selecting root level nodes. 
-- It's followed by the selecting predicates from selected root level nodes.
-- Using name of an edge triggers traversals. 
+- The `uid()` function is the criteria for selecting root-level nodes. 
+- It's followed by the selecting predicates from selected root-level nodes.
+- Using the name of an edge triggers traversals. 
   The edge connecting nodes are also called `uid predicates` in Dgraph.
-- In this case we traverse to all those nodes which are connected to the root level nodes via `follows` edge.
+- In this case, we traverse to all those nodes which are connected to the root level nodes via `follows` edge.
  These are level 1 nodes. 
 
 ![Traversal](./images/traversal-explain.JPG)
 
-In our simple simple graph Michael follows only one person. 
-Hence the traversal only return one node.
+In our simple graph, Michael follows only one person. 
+Hence the traversal only returns one node.
 
 ---
 
-#### Two level traversals 
+#### Two-level traversals 
 We could traverse further from level 1 nodes to level 2 nodes by extending the query. 
 Let's try that next.
 
-Level 1 traversal return people followed by Michael. 
+The first level of traversal returns people, followed by Michael. 
 The next level of traversal further returns the people they follow. 
 
 
@@ -241,13 +241,13 @@ The next level of traversal further returns the people they follow.
 
 ---
 ## Adding an edge between existing nodes
-Similarly, an edge an be added between already existing nodes. 
+Similarly, you can add an edge between already existing nodes. 
 
 Let's say, `Karthic` started following `Michael`.
-We could use the `uids` of both these nodes create a `follows` edge between them. 
-First, let's copy the `uids` from `Ratel`. 
+We could use the `uids` of both these nodes to create a `follows` edge between them. 
+First, let's copy the `uids` from `Ratel.` 
 The `uid` of `Karthic` is `0x13883`. 
-We already have the uid of `Michael`. 
+We already have the uid of `Michael.` 
 
 Let's execute the mutation, 
 
@@ -268,15 +268,15 @@ Let's execute the mutation,
 ![Edge between nodes](./images/edge-between-nodes.gif)
 
 
-Now, with `Karthic` following `Michael`, the new Graph should look like this, 
+Now, with `Karthic` following `Michael,`  the new Graph should look like this, 
 
 <Add an image>
 
-Let's execute a level 3 query starting from `Michael` to traverse the cycle completly, 
+Let's execute a level 3 query starting from `Michael` to traverse the cycle completely, 
 
 ---
 ##Using Recurse function for graph traversals
-Remeber using the query for Level 2 traversal? Let's further the expand it to traverse to another level, 
+Remeber using the query for Level 2 traversal? Let's further expand it to traverse to another level, 
 
 
 ```sh
@@ -305,7 +305,7 @@ Remeber using the query for Level 2 traversal? Let's further the expand it to tr
 Though this works, it's not a great way to traverse the graph. 
 The `Recurse()` directive is ideal for such use cases.
 
-Recurse queries let you traverse a set of graph.
+Recurse queries let you traverse a subset of the graph.
 Either until we reach all leaf nodes or we reach the maximum depth which is specified by the depth parameter.
 
 ```sh
@@ -322,16 +322,16 @@ Either until we reach all leaf nodes or we reach the maximum depth which is spec
 
 We achieve the same result, but with a much easier querying experience. 
 
-[Checkout the docs](https://docs.dgraph.io/query-language/#recurse-query) for detailed instructions on using the `recurse` directive.
+[Check out the docs](https://docs.dgraph.io/query-language/#recurse-query) for detailed instructions on using the `recurse` directive.
 
 ---
 
 ##Deleting a node
 
-Ratel makes it easier to write delete queries using the `uid's`. 
+Ratel makes it easier to compose `delete` mutations using the `uid's.` 
 
 Just click on the node and click on the delete button. 
-This auto-fills the mutation, let's run it. 
+This auto-fills the mutation; let 's run it. 
 
 ![delete](./images/delete.gif)
 
@@ -339,18 +339,18 @@ This auto-fills the mutation, let's run it.
 
 ## Wrapping up
 
-We learnt about CRUD operations and recurve directive in this video. 
-Hope you all had found enjoyed the learning. 
-Before we wrap up here's a sneak peak into our next tutorial. 
+We learned about CRUD operations and `recurse()` directive in this video. 
+I hope you of all had found enjoyed the learning. 
+Before we wrap up here's a sneak peek into our next tutorial. 
 
 Go to the schema tab on the left, did we add any entry into the schema?
 
 ![schema](./images/schema.png)
 
-How about finding a predicate based on it's value? 
-Like, find a nodes with `name` containing `Michael`?
+How about finding a predicate based on its value? 
+Like, find a node with the name `Michael`?
 
-Sounds interesting? Let's learn about schemas, string indexes and advanced querying in Dgraph in our next tutorial.
+Sounds interesting? Let's learn about schemas, string indexes, and advanced querying in Dgraph in our next tutorial.
 
 Till then, happy Graphing!
 
