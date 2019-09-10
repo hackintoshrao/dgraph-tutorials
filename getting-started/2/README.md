@@ -343,11 +343,13 @@ We learned about CRUD operations and `recurse()` directive in this video.
 I hope you of all had found enjoyed the learning. 
 Before we wrap up here's a sneak peek into our next tutorial. 
 
-Go to the schema tab on the left, did we add any entry into the schema?
+Go to the schema tab on the left, did we add any entry into the schema? 
 
 ![schema](./images/schema.png)
 
-How about finding a predicate based on its value? 
+How does schema's work in Dgraph?
+
+Also, how about finding a predicate based on its value? 
 Like, find a node with the name `Michael`?
 
 Sounds interesting? Let's learn about schemas, string indexes, and advanced querying in Dgraph in our next tutorial.
