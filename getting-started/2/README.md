@@ -276,7 +276,8 @@ Let's execute a level 3 query starting from `Michael` to traverse the cycle comp
 
 ---
 ##Using Recurse function for graph traversals
-Remeber using the query for Level 2 traversal? Let's further expand it to traverse to another level, 
+
+Remember using the query for Level 2 traversal? Let's further expand it to traverse to another level, 
 
 
 ```sh
