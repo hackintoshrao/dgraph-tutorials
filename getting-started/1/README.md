@@ -242,7 +242,9 @@ However, for convenience and ease of modeling, we could use a node as an abstrac
 I hope this video made it easy for you to get started with Dgraph. 
 
 Before we wrap here's some quick bits about the next video.
-Did you know that the `uid's` can be used to query, update, and delete predicates? It also could be used to create an edge between existing nodes?
+
+Did you know that the `uid's` can be used to query, update, and delete predicates?
+It also could be used to create an edge between existing nodes?
 
 Sounds interesting? 
 
