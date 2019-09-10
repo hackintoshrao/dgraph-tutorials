@@ -1,6 +1,8 @@
 ### Getting started with Dgraph
 
-Welcome to getting started with Dgraph. I'm Karthic Rao,  Developer Advocate at Dgraph labs. In this tutorial, we'll learn to build a simple graph on Dgraph, 
+Welcome to getting started with Dgraph. I'm Karthic Rao,  Developer Advocate at Dgraph labs. 
+Here is the first of the tutorial series on 
+In this tutorial, we'll learn to build a simple graph on Dgraph, 
 
 ![The simple graph](./images/gs-1.JPG)
 
@@ -221,19 +223,27 @@ Here is one such example,
 }
 ```
 
-We are creating two nodes, but the first node has predicates `name, age and country`, 
-the second one has `name, age and city`. 
+We are creating two nodes, but the first node has predicates `name, age and country`
+The second one has `name, age and city`. 
 
-In the upcoming tutorials, we'll see how the newly introduced type system 
-feature allows us to associate types and follow a strict schema approach for nodes. 
+The schema flexibility allows one to dynamically add predicates. 
+
+Dgraph internally stores data as predicates associated with an `uid`.
+It doesn't have a notion of nodes. 
+But for convinience and ease of of modelling, we could use a node as an abstraction. 
 
 ---
 
 ### Wrapping up
-That's it for this video. I hope you all had fun. In the next video, let's 
-learn about writing queries and mutations based on the uid's of the node. These 
-mutations include the update and delete operations.
+That's it for this video.
+I hope this video made it easy for you get started with Dgraph. 
+
+Before we wrap here's some quick bitsDo you know that the `uid's` can be used to query, update and delete predicates? 
+It could also be used to create an edge between existing nodes? 
+
+Sounds interesting? 
 
 See you all soon, till then, happy Graphing! 
+
 ---
 

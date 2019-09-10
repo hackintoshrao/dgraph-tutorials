@@ -1,17 +1,24 @@
 # UID's, Updates, deletes and traversals
 #### Taking forward the momemtum
-In the last [lesson](../1/README.md), we learnt a bunch of things.
-We learnt about running Dgraph using docker-compose, mutations and couple of simple queries. 
+Welcome to the second the tutorial. 
+I'm Karthic Rao, Developer Advocate at Dgraph labs. 
+Let's take off from where we left off in the last video. 
+In the last lesson we learnt bunch of interesting things about Dgraph. 
+We learnt about running Dgraph using docker-compose, adding data using mutations and couple of simple queries. 
 
-Let's take forward the momemtum, and continue from where we left off. 
-Here's is what we'll be learning in this tutorial.
+Let's take forward the momemtum.
+Here's what we'll be learning in this tutorial,
 
-- Using uid's to run queries. 
-- Update the nodes. 
-- Delete the nodes. 
-- Traversing the edge. 
+- [Querying using uid's.](#Querying-using-uid's)
+- [Updating predicates.](#updating-predicates) 
+- [Traversing the edge.](#traversing-the-edge) 
+- [Adding an edge between existing nodes.](#adding-an-edge-between-existing-nodes)
+- [Using Recurse function for graph traversal](#using-recurse-function-for-graph-traversals)
+- [Deleting a node](#deleting-a-node)
 
-## Using the node ID's for querying
+---
+
+##Querying using uid's
 In the last tutorial, we saw that Dgraph assigns an unique identifier `uid`, to the newly created nodes. 
 
 Let's take a closer look at these uid's and use them to run queries. 
@@ -114,7 +121,7 @@ Let's run the query,
 ![get_node_from_uid](./images/query-uid.png)
 
 ---
-#### Updating the node
+##Updating predicates
 
 Using the `uid` we could even update and delete a node.
 
@@ -152,7 +159,7 @@ The update is successful.
 
 ---
 
-#### Traversing the edges
+##Traversing the edge
 Edges connecting the nodes can be traversed in queries.
 Traversals make use of relationship between the nodes to explore the data.
 
@@ -233,9 +240,119 @@ The next level of traversal further returns the people they follow.
 ![level-2-query](./images/level-2-query.png)
 
 ---
+## Adding an edge between existing nodes
+Similarly, an edge an be added between already existing nodes. 
 
-#### Deleting a node
+Let's say, `Karthic` started following `Michael`.
+We could use the `uids` of both these nodes create a `follows` edge between them. 
+First, let's copy the `uids` from `Ratel`. 
+The `uid` of `Karthic` is `0x13883`. 
+We already have the uid of `Michael`. 
 
+Let's execute the mutation, 
+
+```sh
+{
+  "set":[
+    {
+      "uid": "0x13883",
+      "follows": {
+        "uid": "0x13881"
+      }
+    }
+  ]
+}
+
+```
+
+![Edge between nodes](./images/edge-between-nodes.gif)
+
+
+Now, with `Karthic` following `Michael`, the new Graph should look like this, 
+
+<Add an image>
+
+Let's execute a level 3 query starting from `Michael` to traverse the cycle completly, 
+
+---
+##Using Recurse function for graph traversals
+Remeber using the query for Level 2 traversal? Let's further the expand it to traverse to another level, 
+
+
+```sh
+{
+  find_follower(func: uid(0x13881)) {
+    name 
+    age 
+    follows {
+      name
+      age
+      follows {
+        name 
+        age
+        follows {
+          name 
+          age
+        }
+      }
+    }
+  }
+}
+```
+
+![level 3](./images/level-3.png)
+
+Though this works, it's not a great way to traverse the graph. 
+The `Recurse()` directive is ideal for such use cases.
+
+Recurse queries let you traverse a set of graph.
+Either until we reach all leaf nodes or we reach the maximum depth which is specified by the depth parameter.
+
+```sh
+{
+  find_follower(func: uid(0x13881))@recurse(depth: 4, loop:true) {
+    name 
+    age
+    follows
+  }
+}
+```
+
+![recurse](./images/recurse.png)
+
+We achieve the same result, but with a much easier querying experience. 
+
+[Checkout the docs](https://docs.dgraph.io/query-language/#recurse-query) for detailed instructions on using the `recurse` directive.
+
+---
+
+##Deleting a node
+
+Ratel makes it easier to write delete queries using the `uid's`. 
+
+Just click on the node and click on the delete button. 
+This auto-fills the mutation, let's run it. 
+
+![delete](./images/delete.gif)
+
+---
+
+## Wrapping up
+
+We learnt about CRUD operations and recurve directive in this video. 
+Hope you all had found enjoyed the learning. 
+Before we wrap up here's a sneak peak into our next tutorial. 
+
+Go to the schema tab on the left, did we add any entry into the schema?
+
+![schema](./images/schema.png)
+
+How about finding a predicate based on it's value? 
+Like, find a nodes with `name` containing `Michael`?
+
+Sounds interesting? Let's learn about schemas, string indexes and advanced querying in Dgraph in our next tutorial.
+
+Till then, happy Graphing!
 
 ---
 
