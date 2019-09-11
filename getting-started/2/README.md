@@ -1,10 +1,9 @@
 # UID's, updates, traversals and deletes 
 
 Welcome to the second tutorial. 
-I'm Karthic Rao, the Developer Advocate at Dgraph labs. 
+I'm Karthic Rao, a Developer Advocate at Dgraph labs. 
 Let's take off from where we left off in the last video. 
-In the last video, we got started with Dgraph.
-We learned about running Dgraph using docker-compose, adding data using mutations, and a couple of simple queries. 
+In the last video, we learned the basics of Dgraph, including how to run the database, add new nodes and predicates, and query them back.
 
 Let's take forward the momentum.
 Here's what we'll be learning in this tutorial,
@@ -340,22 +339,15 @@ This auto-fills the mutation; let 's run it.
 
 ## Wrapping up
 
-We learned about CRUD operations and `recurse()` directive in this video. 
-I hope you of all had found enjoyed the learning. 
+In this tutorial, we learned the CRUD operations using UID's and `recurse()` function.  
+
 Before we wrap up here's a sneak peek into our next tutorial. 
 
-Go to the schema tab on the left, did we add any entry into the schema? 
+Did you know that you could do text search on predicates? 
 
-![schema](./images/schema.png)
+Sounds interesting? 
 
-How does schema's work in Dgraph?
-
-Also, how about finding a predicate based on its value? 
-Like, find a node with the name `Michael`?
-
-Sounds interesting? Let's learn about schemas, string indexes, and advanced querying in Dgraph in our next tutorial.
-
-Till then, happy Graphing!
+See you all soon in the next tutorial, till then, happy Graphing!
 
 ---
 
