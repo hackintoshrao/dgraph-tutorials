@@ -48,7 +48,7 @@ The two nodes in the above graph represent people: `Karthic` and `Gary`.
 You can also see that these nodes have two associated properties: `name` and `age`.
 These properties of the nodes are called `predicates` in Dgraph.
 
-Karthic and Gary are friends. The `friend` edge between them represents their relationship.
+Karthic follows Gary. The `follows` edge between them represents their relationship.
 The edge connecting two nodes is also called a `predicate` in Dgraph,
 although this one points to another node rather than a string or an integer.
 
