@@ -72,7 +72,7 @@ Ratel makes it easier to run queries and mutations.
 We'll be exploring more of its features all along with the tutorial series.
 
 Let's go to the Mutate tab and paste the following mutation into the text area.
-_Do not execut it just yet!_
+_Do not execute it just yet!_
 
 ```json
 {
