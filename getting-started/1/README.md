@@ -1,75 +1,78 @@
 ### Getting started with Dgraph
 
 Welcome to getting started with Dgraph.
-I'm Karthic Rao, the Developer Advocate at Dgraph labs. 
+I'm Karthic Rao, a Developer Advocate at Dgraph labs.
 Dgraph is an open-source, transactional, distributed, native graph database.
 Here is the first one of the tutorial series on using Dgraph.
 
 
-In this tutorial, we'll learn to build the following graph on Dgraph,
+In this tutorial, we'll learn how to build the following graph on Dgraph,
 
 ![The simple graph](./images/gs-1.JPG)
 
-In the process, we'll learn about, 
+In the process, we'll learn about,
 
-- Running Dgraph using Docker compose. 
-- Run the following basic operations using Dgraph's UI Ratel, 
-  - Create node
-  - Create an edge between the nodes.
+- Running Dgraph using Docker compose.
+- Running the following basic operations using Dgraph's UI Ratel,
+  - Creating a node.
+  - Creating an edge between two nodes.
   - Querying for the nodes.
-   
+
 ---
 
 ## Running Dgraph
-< Would replace it with dgraph-standalone once it's ready >
-Docker-compose is the quickest way to get started with Dgraph. 
-Ensure that Docker and docker-compose installed on your machine. 
-You can find the docker-compose configuration in the documentation site at docs.dgraph.io. 
-Go to the `Getting Started` section on the left, scroll down and you can to find the Docker compose configuration. 
 
-Alternatively, you could also find the docker-compose configuration from [this link](https://github.com/dgraph-io/dgraph/blob/master/wiki/content/get-started/index.md#docker-compose)  below.
+<!-- TODO(karthic): replace this with dgraph-standalone once it's ready -->
 
-Copy the configuration, paste it in a file by name `docker-compose.yml`.
- Now, it's just a matter of running `docker-compose up`, and you have Dgraph up and running. 
+Docker-compose is the quickest way to get started with Dgraph.
+Ensure that Docker and docker-compose are installed on your machine.
+You can find the docker-compose configuration in the documentation site at https://docs.dgraph.io.
+Specifically, in the `Getting Started` section which you can access directly
+[here](https://docs.dgraph.io/get-started/#docker-compose).
+
+Copy the configuration file, paste it in a file by name `docker-compose.yml`.
+ Now, it's just a matter of running `docker-compose up`, and you have Dgraph up and running.
 
 ---
 
 ### Nodes and Edges
-In this exercise, let's build a simple graph with two-node and an edge connecting them.
+In this section, we'll build a simple graph with two nodes and an edge connecting them.
 
 ![The simple graph](./images/gs-1.JPG)
-In a Graph database, any real-world objects or entities are represented as nodes.
-May it is a sale, a transaction, a place or a person, all these entities are 
-represented as a node in a Graph database.
+In a Graph database, concepts or entities are represented as nodes.
+May it be a sale, a transaction, a place, or a person, all these entities are
+represented as nodes in a Graph database.
 
-An edge represents the relationship between the nodes. 
-The two nodes in the above graph represent people, `Karthic` and `Gary`. 
-You could also see that these nodes have two associated properties,`name` and `age`. 
-These properties of the nodes are also called as `predicates` in Dgraph. 
+An edge represents the relationship between two nodes.
+The two nodes in the above graph represent people: `Karthic` and `Gary`.
+You can also see that these nodes have two associated properties: `name` and `age`.
+These properties of the nodes are called `predicates` in Dgraph.
 
-Karthic and Gary are friends. The `friend` edge between them represents their relationship.
-The edge connecting two nodes are also called as `uid predicates` in Dgraph. 
+Karthic follows Gary. The `follows` edge between them represents their relationship.
+The edge connecting two nodes is also called a `predicate` in Dgraph,
+although this one points to another node rather than a string or an integer.
 
-The docker-compose setup should already have Ratel up and running.
-Just visit `http://localhost:8000` from your browser, and you should be able to access Ratel. 
+The docker-compose setup comes with a useful Dgraph UI called Ratel.
+Just visit `http://localhost:8000` from your browser, and you will be able to access it.
 
 
 ![ratel-1](./images/gs-2.png)
 
-We'll be using the latest stable release of Ratel. 
+We'll be using the latest stable release of Ratel.
 
 ![ratel-2](./images/gs-3.png)
 
 ---
 
 ### Mutations using Ratel
-The Create, Update, and Delete operations in Dgraph are called mutations. 
+
+The create, update, and delete operations in Dgraph are called mutations.
 
 Ratel makes it easier to run queries and mutations.
 We'll be exploring more of its features all along with the tutorial series.
 
-Let's go the Mutate tab and run the mutation.
-Hold on! The following mutation just creates the nodes in our graph, but it doesn't connect them via the edge.
+Let's go to the Mutate tab and paste the following mutation into the text area.
+_Do not execute it just yet!_
 
 ```json
 {
@@ -87,11 +90,10 @@ Hold on! The following mutation just creates the nodes in our graph, but it does
 }
 ```
 
-The set function takes an array of JSON values and creates a node for each of them. 
-The query above creates two nodes, one corresponding to each of the JSON value. 
-However, it doesn't create an edge between these nodes. 
+The query above creates two nodes, one corresponding to each of the JSON value associated with `"set"`.
+However, it doesn't create an edge between these nodes.
 
-A small modification to the mutation would create an edge between them. 
+A small modification to the mutation will fix it so it creates an edge in between them.
 
 ```json
 {
@@ -110,66 +112,71 @@ A small modification to the mutation would create an edge between them.
 
 ![explain mutation](./images/explain-mutation.JPG)
 
-Let's execute this mutation. Click Run and boom! 
+Let's execute this mutation. Click Run and boom!
+
 ![Query-gif](./images/simple-mutation.gif)
+
+You can see in the response that two UIDs (Universal IDentifiers) have been created.
+The two values in the `"uids"` field of the response correspond
+to the two nodes created for "Karthic" and "Gary".
 
 ---
 
-### Querying using the `has`  function
+### Querying using the `has` function
 
-Now, let us run a query to obtain to visualize the nodes which we just created. 
+Now, let us run a query to visualize the nodes which we just created.
 We'll be using Dgraph's `has` function.
-Using `has(name)` returns all the nodes with predicate `name` in them.
+The function `has(name)` returns all the nodes with a predicate `name` associated with them.
 
 ```sh
 {
   people(func: has(name)) {
-    name 
+    name
     age
   }
 }
 ```
 
-Go to the `Query` tab and type in the query.
-Click `Run` on the top right of the screen. 
+Go to the `Query` this time tab and type in the query above.
+Then, click `Run` on the top right of the screen.
 
 ![query-1](./images/query-1.gif)
 
 Ratel renders a graph visualization of the result.
 
-Just click on any of them, notice that the nodes are assigned uid's. 
+Just click on any of them, notice that the nodes are assigned UIDs,
+matching the ones we saw in the mutation's response.
 
-One could also view the JSON results from the JSON tab on the right. 
+You can also view the JSON results in the JSON tab on the right.
 
 ![query-2](./images/query-2.gif)
 
 ---
 
-### Deciphering the query.
+### Understanding the query.
 
 ![Illustration with explanation](./images/explain-2.JPG)
- 
+
 The first part of the query is the user-defined function name.
-In our query, we have named it as `people`. However, one could use any name.  
+In our query, we have named it as `people`. However, you could use any other name.
 
-`func` keyword has to be assigned to an inbuilt function of Dgraph. 
-Dgraph offers a variety of inbuilt functions. The `has`  function is one of them.  
-Check out the [query language guide](https://docs.dgraph.io/query-language) to know more about other in-built functions in Dgraph. 
-Even better, subscribe to the channel and follow along :)
+The `func` parameter has to be associated to a builtin function of Dgraph.
+Dgraph offers a variety of builtin functions. The `has`  function is one of them.
+Check out the [query language guide](https://docs.dgraph.io/query-language) to know more about other builtin functions in Dgraph.
 
-The inner fields of the query are similar to select statement in SQL. 
+The inner fields of the query are similar to select statement in SQL, or to a GraphQL query!
 
-You could alter them only to return the predicates of interest, 
+You can easily specify which predicates you want to get back.
 
 ```
 {
   people(func: has(name)) {
-    name 
+    name
   }
 }
 ```
 
-Similarly, we could use the `has` function to find all nodes with the `age` predicate. 
+Similarly, you can use the `has` function to find all nodes with the `age` predicate.
 
 ```sh
 {
@@ -182,7 +189,8 @@ Similarly, we could use the `has` function to find all nodes with the `age` pred
 ---
 
 ### More on mutations
-We can extrapolate the mutation syntax to create more nodes and edges. 
+
+We can extrapolate the mutation syntax to create more nodes and edges.
 
 
 ```json
@@ -206,9 +214,12 @@ We can extrapolate the mutation syntax to create more nodes and edges.
 
 ---
 
-### Flexible schema 
-Dgraph implicitly doesn't enforce a structure or a schema. 
-Here is one such example, 
+### Flexible schema
+
+Dgraph doesn't enforce a structure or a schema, instead you can start entering
+your data immediately and add constraints as needed.
+
+Let's look at this query.
 
 ```json
 {
@@ -227,27 +238,27 @@ Here is one such example,
 }
 ```
 
-We are creating two nodes, but the first node has predicates `name, age, and country.`
-The second one has `name, age, and city.` 
+We are creating two nodes, while the first node has predicates `name`, `age`, and `country`,
+the second one has `name`, `age`, and `city`.
 
-The schema flexibility allows one to add predicates dynamically. 
-
-Dgraph internally stores data as predicates associated with an `uid`.
-It doesn't have a notion of nodes. 
-However, for convenience and ease of modeling, we could use a node as an abstraction. 
+Schemas are not needed initially, instead Dgraph will create new
+predicates as they appear in your mutations.
+This flexibility can be very useful, but if you prefer to force your
+mutations to follow a given schema there are options available that
+we will explore in an upcoming episode.
 
 ---
 
 ### Wrapping up
-I hope this video made it easy for you to get started with Dgraph. 
+
+In this video we learned the basics of Dgraph, including how to
+run the database, add new nodes and predicates, and query them
+back.
 
 Before we wrap here's some quick bits about the next video.
+Did you know that the nodes can also be fetch given their UID?
+They also can be used to create an edge between existing nodes!
 
-Did you know that the `uid's` can be used to query, update, and delete predicates?
-It also could be used to create an edge between existing nodes?
+Sounds interesting?
 
-Sounds interesting? 
-
-See you all soon in the next tutorial, till then, happy Graphing! 
----
-
+See you all soon in the next tutorial, till then, happy Graphing!
