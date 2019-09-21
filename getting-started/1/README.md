@@ -219,7 +219,7 @@ We can extrapolate the mutation syntax to create more nodes and edges.
 Dgraph doesn't enforce a structure or a schema, instead you can start entering
 your data immediately and add constraints as needed.
 
-Let's look at this query.
+Let's look at this mutation.
 
 ```json
 {
@@ -256,7 +256,7 @@ run the database, add new nodes and predicates, and query them
 back.
 
 Before we wrap here's some quick bits about the next video.
-Did you know that the nodes can also be fetch given their UID?
+Did you know that the nodes can also be fetched given their UID?
 They also can be used to create an edge between existing nodes!
 
 Sounds interesting?
