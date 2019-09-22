@@ -24,14 +24,17 @@ In the process, we'll learn about,
 
 <!-- TODO(karthic): replace this with dgraph-standalone once it's ready -->
 
-Docker-compose is the quickest way to get started with Dgraph.
-Ensure that Docker and docker-compose are installed on your machine.
-You can find the docker-compose configuration in the documentation site at https://docs.dgraph.io.
-Specifically, in the `Getting Started` section which you can access directly
-[here](https://docs.dgraph.io/get-started/#docker-compose).
+Running Dgraph-standalone docker image is the quickest way to get started with Dgraph.
+This standalone image is meant for quickstart purposes only.
+It is not recommendd for production environments.
 
-Copy the configuration file, paste it in a file by name `docker-compose.yml`.
- Now, it's just a matter of running `docker-compose up`, and you have Dgraph up and running.
+Ensure that Docker is installed and running on your machine.
+
+Now, it's just a matter of running the following command, and you have Dgraph up and running.
+
+```sh
+docker run --rm -it -p 8000:8000 -p 8080:8080 -p 8090:8090 dgraph/standalone:latest
+```
 
 ---
 
@@ -262,3 +265,5 @@ They also can be used to create an edge between existing nodes!
 Sounds interesting?
 
 See you all soon in the next tutorial, till then, happy Graphing!
+
+---
