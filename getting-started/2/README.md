@@ -2,14 +2,13 @@
 
 Welcome to the second tutorial. 
 I'm Karthic Rao, a Developer Advocate at Dgraph labs. 
-In the last video, we learned the basics of Dgraph, including how to run the database, add new nodes and predicates, and query them back.
-
----
+Welcome to the second episode of the tutorial series on Dgraph. 
+In the last video, we learned the basics of Dgraph. 
+Including, how to run the database, add new nodes and predicates, and query them back.
 
 ![Graph](./images/graph.JPG)
 
-In this tutorial, we'll build the above graph and learn the following operations using it, 
-
+In this tutorial, using the graph above, we'll learn about:
 - [Querying using uids.](#query-using-uids)
 - [Updating predicates.](#updating-predicates) 
 - [Adding an edge between existing nodes.](#adding-an-edge-between-existing-nodes)
@@ -19,13 +18,13 @@ In this tutorial, we'll build the above graph and learn the following operations
   - [Recursive traversals](#recursive-traversals)
 - [Deleting a node.](#deleting-a-node)
 
-Ensure that Dgraph and Ratel are running. Refer to the last video for instructions to run Dgraph.
+Refer to the last video for instructions on how to run Dgraph.
 
-Let's first create the graph using a simple mutation, 
+Let's first build the graph.
 
-Go to Ratel, and run mutation to create the graph.
+Go to Ratel's mutate tab, paste the mutation below in the text area, click run.
 
-```sh
+```json
 {
   "set":[
     {
@@ -35,7 +34,7 @@ Go to Ratel, and run mutation to create the graph.
         "name": "Pawan",
         "age": 28,
         "follows":{
-          "name": "Karthic",
+          "name": "Mary",
           "age": 28
         }
       }
@@ -46,17 +45,28 @@ Go to Ratel, and run mutation to create the graph.
  
 ![mutation-1](./images/add-data.gif)
 
----
-
 ## Query using uids
 
-The inbuilt function `uid()` returns nodes with the matching uids.   
+The built-in function `uid()`, takes in either an `uid` or list of `uids` as an argument.
+And, it returns nodes with the matching uids on execution.
 
 Let's see it in action. 
+First, let's copy the uid of node created for `Michael`. 
 
-Copy the UID of the node with `name` predicate set to `Michael`. 
+Go to the query tab, type in the query, and click run.
+```sh
+{
+  people(func: has(name)) {
+    name
+    age
+  }
+}
+```
 
-In the query below, replace the uid `0x1388` with the `uid` you just copied. 
+Now, from the result, copy the `uid` of Michael's node. 
+We'll be using this uid in our next query.
+
+In the query below, replace the uid `0x1388`, with the `uid` you just copied. 
 
 Let's run the query, 
 
@@ -72,30 +82,31 @@ Let's run the query,
 
 ![get_node_from_uid](./images/query-uid.png)
 
----
+You can see that, the `uid()` function returns the node matching the uid `0x13881`.
 
 ## Updating predicates
+You can also update one or more predicates of a node using its `uid`. 
 
-You can update the predicates of a node using `uid`. 
+Michael recently celebrated his birthday. Let's update Michael's age to 41. 
 
-Let's update the `name` of `Michael` to `Michael Compton`.  
+Here's the mutation to update the `age` predicate of node for `Michael`. Let's go to the mutate tab and execute. 
+Don't forget to replace the `uid` with the one you copied. 
 
-Here's the mutation, let's go to the mutate tab and execute,  
-```sh
+```json
 {
   "set":[
     {
       "uid": "0x13881",
-      "name": "Michael Compton"
+      "age": "41"
     }
   ]
 }
 ```
 
-The mutation above updates the `name` predicate of the node with matching uid to `Michael Compton`.
-In case the predicate doesn't already exist, the mutation creates a new one. 
+We had earlier used `set` to create new nodes. 
+Although, on using the `uid` of an already existing node, it updates its predicates, instead of creating a new node.
 
-Let's validate the update using a query, 
+You can see that, Michael's age is now updated to 41.
 
 ```sh
 {
@@ -108,9 +119,19 @@ Let's validate the update using a query,
 
 ![update check](./images/update-check.png)
 
-The update is successful.
 
----
+Similarly, you can also add new predicates to the node.
+
+```json
+{
+  "set":[
+    {
+      "uid": "0x13881",
+      "country": "Australia"
+    }
+  ]
+}
+```
 
 ## Adding an edge between existing nodes
 
@@ -145,7 +166,7 @@ Now, with `Karthic` following `Michael,` the new Graph would look like this,
 
 <Add an image> 
  
----
+
 
 ## Traversing the edges
 
@@ -165,7 +186,7 @@ A two-level traversal could answer questions like, `Give me all the followers of
 
 Deeper traversals help unearth complex relationships and patterns in the data.
 
----
+
 
 #### One level traversals 
 
@@ -199,7 +220,7 @@ Let's dissect the query,
 In our simple graph, Michael follows only one person. 
 Hence the traversal only returns one node.
 
----
+
 
 #### Two-level traversals 
 
@@ -229,7 +250,7 @@ The next level of traversal further returns the people they follow.
 
 ![level-2-query](./images/level-2-query.png)
 
----
+
 
 #### Recursive traversals
 
@@ -282,7 +303,7 @@ We achieve the same result, but with a much easier querying experience.
 
 [Check out the docs](https://docs.dgraph.io/query-language/#recurse-query) for detailed instructions on using the `recurse` directive.
 
----
+
 
 ## Deleting a node
 
@@ -293,21 +314,21 @@ This auto-fills the mutation; let 's run it.
 
 ![delete](./images/delete.gif)
 
----
+
 
 ## Wrapping up
 
 In this tutorial, we learned the CRUD operations using UID's and `recurse()` function.  
 
-Before we wrap up here's a sneak peek into our next tutorial. 
+Before we wrap, here's a sneak peek into our next tutorial. 
 
-Did you know that you could do text search on predicates? 
+Did you know that you could do search predicates based on their value? 
 
 Sounds interesting? 
 
 See you all soon in the next tutorial, till then, happy Graphing!
 
----
+
 
 
 
